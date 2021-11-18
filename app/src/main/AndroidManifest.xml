@@ -22,7 +22,7 @@ SPDX-License-Identifier: Apache-2.0
         <!-- If targeting API level 24+, configChanges should additionally include 'density'. -->
         <!-- If targeting API level 24+, android:resizeableActivity="false" should be added. -->
 		<activity
-				android:name="com.khronos.hello_xr.MainActivity"
+				android:name="com.example.oculushelloxr.MainActivity"
 				android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
 				android:launchMode="singleTask"
 				android:screenOrientation="landscape"
@@ -33,6 +33,7 @@ SPDX-License-Identifier: Apache-2.0
 			<!-- This filter lets the apk show up as a launchable icon. -->
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
+				<category android:name="com.oculus.intent.category.VR" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
