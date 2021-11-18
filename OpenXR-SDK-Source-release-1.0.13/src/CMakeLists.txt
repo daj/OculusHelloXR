@@ -122,7 +122,19 @@ find_package(Threads REQUIRED)
 find_package(JsonCpp)
 
 ### All options defined here
-option(BUILD_LOADER "Build loader" ON)
+
+# START Modified as per https://gayanediriweera.github.io/code/2021/04/06/how-to-run-helloxr-on-oculus-quest.html
+option(BUILD_LOADER "Build loader" OFF) 
+add_library(openxr_loader SHARED IMPORTED)
+set_property(
+        TARGET
+        openxr_loader
+        PROPERTY
+        IMPORTED_LOCATION
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../ovr_openxr_mobile_sdk_1.0.13/OpenXR/Libs/Android/${ANDROID_ABI}/${CMAKE_BUILD_TYPE}/libopenxr_loader.so
+)
+# FINISH
+
 option(BUILD_ALL_EXTENSIONS "Build loader and layers with all extensions" OFF)
 option(
     BUILD_LOADER_WITH_EXCEPTION_HANDLING
