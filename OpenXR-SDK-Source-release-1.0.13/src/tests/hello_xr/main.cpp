@@ -9,6 +9,7 @@
 #include "platformplugin.h"
 #include "graphicsplugin.h"
 #include "openxr_program.h"
+#include <cstring>
 
 namespace {
 
@@ -17,8 +18,16 @@ void ShowHelp() { Log::Write(Log::Level::Info, "adb shell setprop debug.xr.graph
 
 bool UpdateOptionsFromSystemProperties(Options& options) {
     char value[PROP_VALUE_MAX] = {};
+
     if (__system_property_get("debug.xr.graphicsPlugin", value) != 0) {
         options.GraphicsPlugin = value;
+    }
+
+    if (strlen(options.GraphicsPlugin.c_str()) == 0) {
+        // Pick a sensible default so that developers don't need to remember to set a system
+        // property every time after restarting the device.
+        Log::Write(Log::Level::Info, "Defaulting GraphicsPlugin to OpenGLES");
+        options.GraphicsPlugin = "OpenGLES";
     }
 
     // Check for required parameters.
